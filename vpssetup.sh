@@ -9,6 +9,7 @@
 # - nvm
 # - mosh
 # - Firewall Configuration
+# - bbr (BBR is a new feature in Linux 4.9)
 
 # Update system
 sudo apt-get update
@@ -53,3 +54,8 @@ sudo ufw allow http
 sudo ufw allow https
 sudo ufw allow 60000:61000/udp comment "mosh"
 sudo ufw enable
+
+# Install bbr
+sudo echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+sudo echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sudo sysctl -p
